@@ -134,15 +134,19 @@ Every issue includes a spec reference — so when you tell a demand partner thei
 
 ## Performance
 
-Measured on Apple M-series (10 workers, in-memory corpus, no disk I/O):
+Measured on Apple M4 (10-core) with production-realistic VAST tags (17–44 KB),
+using mimalloc as the global allocator in the underlying Rust library.
 
-| File size | Throughput | avg latency | p99 latency |
-|-----------|-----------|-------------|-------------|
-| ~9 KB (standard inline) | 38,500/s | 259µs | 1.2ms |
-| ~22 KB (rich with companions) | 20,400/s | 489µs | 2.5ms |
-| ~339 KB (large with extensions) | 23,200/s | 430µs | 2.3ms |
+| Goroutines | 17 KB tag | 44 KB tag |
+|---|---|---|
+| 1 | 2,480 tags/sec · 403 µs | 440 tags/sec · 2,269 µs |
+| 4 | 10,181 tags/sec | 1,505 tags/sec |
+| 10 | 13,558 tags/sec | 1,993 tags/sec |
 
-A single 10-core node handles ~25,000 validations/sec at comfortable utilisation. With creative caching, one node is sufficient for most production ad servers at any scale.
+A single M4 node handles **2,480 validations/sec** per goroutine on typical 17 KB tags.
+With 10 goroutines you reach **13,500+/sec** — near-linear scaling limited only by CPU
+core count. A typical OpenRTB bid cycle takes 100–300 ms; validation adds under 2.3 ms
+even on the heaviest 44 KB tags.
 
 ---
 

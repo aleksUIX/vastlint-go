@@ -1,8 +1,8 @@
 // Package vastlint provides Go bindings for the vastlint VAST XML validator.
 //
 // vastlint validates IAB VAST XML tags against 108 rules covering VAST 2.0
-// through 4.3. It runs in under 100 microseconds per tag and requires no
-// network calls or external services.
+// through 4.3. It validates production-size tags (17–44 KB) in under
+// 2.3 milliseconds and requires no network calls or external services.
 //
 // Basic usage:
 //
