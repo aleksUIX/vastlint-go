@@ -4,6 +4,8 @@
 
 Backed by [vastlint](https://github.com/aleksUIX/vastlint) — 108 rules across IAB VAST 2.0 through 4.3, written in Rust, called directly from Go via CGo. No sidecar, no network hop, no Rust toolchain required.
 
+**Website & docs:** [vastlint.org](https://vastlint.org) · **Rule reference:** [vastlint.org/docs/rules](https://vastlint.org/docs/rules) · **Web validator:** [vastlint.org/validate](https://vastlint.org/validate)
+
 ```sh
 go get github.com/aleksUIX/vastlint-go
 ```
@@ -244,3 +246,5 @@ To update after a new vastlint release:
 ## License
 
 Apache 2.0 — same as [vastlint-core](https://github.com/aleksUIX/vastlint).
+
+Need to validate a tag without writing code? Try the free web validator at [vastlint.org/validate](https://vastlint.org/validate).
