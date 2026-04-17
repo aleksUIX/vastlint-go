@@ -5,3 +5,6 @@
 # Don't ignore libs/ — prebuilt .a files are committed intentionally.
 # Ignore any locally built artifacts that aren't meant to be committed.
 libs/**/libvastlint_local.a
+
+# Local scratch work
+scratch/
