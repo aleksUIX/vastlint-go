@@ -1,10 +1,10 @@
 # vastlint-go
 
-**In-process VAST XML validation for Go ad servers.** Drop it into your bidder, SSP, or ad quality pipeline and start catching broken tags before they cost you revenue.
+**High-performance, in-process VAST XML validation for Go ad servers.** Drop it into your bidder, SSP, or ad server for realtime creative validation — pre-bid rejection, async quality monitoring, or cache-backed creative scoring at scale.
 
-Backed by [vastlint](https://github.com/aleksUIX/vastlint) — 108 rules across IAB VAST 2.0 through 4.3, written in Rust, called directly from Go via CGo. No sidecar, no network hop, no Rust toolchain required.
+Backed by [vastlint](https://github.com/aleksUIX/vastlint) — a zero-dependency Rust core that also powers the [Elixir/Erlang NIF](https://github.com/aleksUIX/vastlint-erlang) and WASM npm package. 118 rules across IAB VAST 2.0 through 4.3, called directly from Go via CGo. No sidecar, no network hop, no Rust toolchain required.
 
-**Website & docs:** [VAST tag validator](https://vastlint.org) · **Rule reference:** [VAST error rule reference](https://vastlint.org/docs/rules) · **Web validator:** [validate VAST online](https://vastlint.org/validate)
+**Website & docs:** [VAST tag validator](https://vastlint.org) · **Rule reference:** [VAST error rule reference](https://vastlint.org/docs/rules) · [RULES.md](RULES.md) · **Web validator:** [validate VAST online](https://vastlint.org/validate)
 
 ```sh
 go get github.com/aleksUIX/vastlint-go
