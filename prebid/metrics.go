@@ -10,16 +10,27 @@ import (
 // replaced, matching modules.moduleReplacer.
 const MetricsKey = "openadtech_vastlint"
 
+const (
+	bidSkipped  = "skipped"
+	bidChecked  = "checked"
+	bidRejected = "rejected"
+	bidError    = "error"
+)
+
 type recorder interface {
 	Finding(caller, ruleID string, revenue bool)
+	Bid(caller, result string)
 }
 
 type nopRecorder struct{}
 
 func (nopRecorder) Finding(string, string, bool) {}
 
+func (nopRecorder) Bid(string, string) {}
+
 type promRecorder struct {
 	findings *prometheus.CounterVec
+	bids     *prometheus.CounterVec
 }
 
 func (p promRecorder) Finding(caller, ruleID string, revenue bool) {
@@ -28,6 +39,10 @@ func (p promRecorder) Finding(caller, ruleID string, revenue bool) {
 		impact = "true"
 	}
 	p.findings.WithLabelValues(caller, ruleID, impact).Inc()
+}
+
+func (p promRecorder) Bid(caller, result string) {
+	p.bids.WithLabelValues(caller, result).Inc()
 }
 
 var (
@@ -46,12 +61,19 @@ func Register(reg prometheus.Registerer, namespace, subsystem string) {
 		Namespace: namespace,
 		Subsystem: subsystem,
 		Name:      "vastlint_findings_total",
-		Help:      "Count of vastlint revenue-impact findings on video adm, labeled by bidder and rule id.",
+		Help:      "Count of vastlint findings on video adm, labeled by bidder, rule id, and revenue impact.",
 	}, []string{"caller", "rule_id", "revenue_impact"})
+	bids := prometheus.NewCounterVec(prometheus.CounterOpts{
+		Namespace: namespace,
+		Subsystem: subsystem,
+		Name:      "vastlint_bids_total",
+		Help:      "Count of bids seen by vastlint, labeled by bidder and result (checked, skipped, rejected, error).",
+	}, []string{"caller", "result"})
 	reg.MustRegister(findings)
+	reg.MustRegister(bids)
 
 	tallyMu.Lock()
-	tally = promRecorder{findings: findings}
+	tally = promRecorder{findings: findings, bids: bids}
 	tallyMu.Unlock()
 }
 
