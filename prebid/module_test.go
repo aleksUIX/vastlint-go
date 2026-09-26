@@ -43,7 +43,11 @@ func TestRejectRevenueDropsBid(t *testing.T) {
 
 	result, err := m.HandleRawBidderResponseHook(context.Background(), hookstage.ModuleInvocationContext{}, payload)
 	require.NoError(t, err)
-	require.Equal(t, []string{"dsp|VAST-2.0-inline-impression|true"}, tally.got)
+	require.Equal(t, []string{
+		"dsp|VAST-2.0-inline-impression|true",
+		"dsp|VAST-2.0-some-other|false",
+	}, tally.findings)
+	require.Equal(t, []string{"dsp|" + bidRejected, "dsp|" + bidSkipped}, tally.bids)
 
 	updated := applyBids(t, payload, result)
 	require.Len(t, updated.BidderResponse.Bids, 1)
@@ -68,7 +72,8 @@ func TestCountingKeepsBid(t *testing.T) {
 	result, err := m.HandleRawBidderResponseHook(context.Background(), hookstage.ModuleInvocationContext{}, payload)
 	require.NoError(t, err)
 	require.Empty(t, result.ChangeSet.Mutations())
-	require.Equal(t, []string{"dsp|VAST-2.0-inline-impression|true"}, tally.got)
+	require.Equal(t, []string{"dsp|VAST-2.0-inline-impression|true"}, tally.findings)
+	require.Equal(t, []string{"dsp|" + bidChecked}, tally.bids)
 }
 
 func TestSkipsNonVASTAndValidatorErrors(t *testing.T) {
@@ -91,7 +96,8 @@ func TestSkipsNonVASTAndValidatorErrors(t *testing.T) {
 	require.NoError(t, err)
 	require.Empty(t, result.ChangeSet.Mutations())
 	require.Equal(t, []string{"vastlint down"}, result.Errors)
-	require.Empty(t, tally.got)
+	require.Empty(t, tally.findings)
+	require.Equal(t, []string{"dsp|" + bidSkipped, "dsp|" + bidError}, tally.bids)
 }
 
 func TestAccountConfigOverridesReject(t *testing.T) {
@@ -114,6 +120,8 @@ func TestAccountConfigOverridesReject(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, result.ChangeSet.Mutations(), 1)
 	require.Empty(t, applyBids(t, payload, result).BidderResponse.Bids)
+	require.Equal(t, []string{"seat|VAST-2.0-wrapper-vastadtaguri|true"}, tally.findings)
+	require.Equal(t, []string{"seat|" + bidRejected}, tally.bids)
 }
 
 func TestRegisterRecordsOnPrometheus(t *testing.T) {
@@ -139,6 +147,10 @@ func TestRegisterRecordsOnPrometheus(t *testing.T) {
 		"caller":         "dsp",
 		"rule_id":        "VAST-2.0-inline-impression",
 		"revenue_impact": "true",
+	}))
+	require.Equal(t, 1.0, counterValue(t, families, "vastlint_bids_total", map[string]string{
+		"caller": "dsp",
+		"result": bidChecked,
 	}))
 }
 
@@ -170,7 +182,8 @@ func applyBids(t *testing.T, payload hookstage.RawBidderResponsePayload, result 
 }
 
 type memTally struct {
-	got []string
+	findings []string
+	bids     []string
 }
 
 func (m *memTally) Finding(caller, ruleID string, revenue bool) {
@@ -178,7 +191,11 @@ func (m *memTally) Finding(caller, ruleID string, revenue bool) {
 	if revenue {
 		flag = "true"
 	}
-	m.got = append(m.got, caller+"|"+ruleID+"|"+flag)
+	m.findings = append(m.findings, caller+"|"+ruleID+"|"+flag)
+}
+
+func (m *memTally) Bid(caller, result string) {
+	m.bids = append(m.bids, caller+"|"+result)
 }
 
 func counterValue(t *testing.T, families []*dto.MetricFamily, name string, labels map[string]string) float64 {

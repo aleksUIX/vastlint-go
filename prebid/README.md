@@ -32,7 +32,11 @@ if _, ok := moduleStageNames[vastlintpbs.MetricsKey]; ok {
 }
 ```
 
-`Register` adds `vastlint_findings_total{caller,rule_id,revenue_impact}` to the same Prometheus registry Prebid Server scrapes on `/metrics`. `caller` is the bidder name.
+`Register` adds two series to the Prometheus registry Prebid Server scrapes on `/metrics`. `caller` is the bidder name.
+
+`vastlint_findings_total{caller,rule_id,revenue_impact}` counts every finding. `revenue_impact` is `true` for the twelve rules that mark lost impressions, broken measurement, or zero fill. Rejects use that label. The other findings stay on the scrape.
+
+`vastlint_bids_total{caller,result}` counts each bid as `checked`, `skipped`, `rejected`, or `error`. A clean tag and a skipped tag no longer look the same.
 
 ## Configuration
 

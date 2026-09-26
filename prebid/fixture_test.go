@@ -3,6 +3,7 @@ package prebid
 import (
 	"context"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/prebid/prebid-server/v4/adapters"
@@ -29,8 +30,16 @@ func TestBuilderValidatesVideoStormFixture(t *testing.T) {
 	require.NoError(t, err)
 	require.Empty(t, result.Errors)
 	require.Empty(t, result.ChangeSet.Mutations())
-	for _, got := range tally.got {
-		require.Contains(t, got, "|true")
+	require.Equal(t, []string{"videostorm|" + bidChecked}, tally.bids)
+	for _, got := range tally.findings {
+		parts := strings.Split(got, "|")
+		require.Len(t, parts, 3)
+		want := "false"
+		if revenueImpact(parts[1]) {
+			want = "true"
+		}
+		require.Equal(t, want, parts[2], got)
+		t.Log(got)
 	}
 }
 
@@ -47,6 +56,7 @@ func TestBuilderRejectsMissingImpression(t *testing.T) {
 	}
 	result, err := m.HandleRawBidderResponseHook(context.Background(), hookstage.ModuleInvocationContext{}, payload)
 	require.NoError(t, err)
-	require.Contains(t, tally.got, "dsp|VAST-2.0-inline-impression|true")
+	require.Contains(t, tally.findings, "dsp|VAST-2.0-inline-impression|true")
+	require.Equal(t, []string{"dsp|" + bidRejected}, tally.bids)
 	require.Empty(t, applyBids(t, payload, result).BidderResponse.Bids)
 }

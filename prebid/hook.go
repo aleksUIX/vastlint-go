@@ -15,8 +15,8 @@ type finding struct {
 }
 
 // HandleRawBidderResponseHook checks video adm that looks like VAST.
-// Revenue-impact findings are counted. Bids are dropped only when
-// reject_revenue is set.
+// Every finding is counted. Bids are dropped only when reject_revenue is
+// set and a revenue-impact rule fired.
 func (m Module) HandleRawBidderResponseHook(
 	_ context.Context,
 	miCtx hookstage.ModuleInvocationContext,
@@ -44,6 +44,7 @@ func (m Module) HandleRawBidderResponseHook(
 	dropped := false
 	for _, bid := range payload.BidderResponse.Bids {
 		if bid == nil || bid.Bid == nil || bid.BidType != openrtb_ext.BidTypeVideo || !looksLikeVAST(bid.Bid.AdM) {
+			rec.Bid(caller, bidSkipped)
 			kept = append(kept, bid)
 			continue
 		}
@@ -51,20 +52,22 @@ func (m Module) HandleRawBidderResponseHook(
 		issues, verr := m.validate(bid.Bid.AdM)
 		if verr != nil {
 			result.Errors = append(result.Errors, verr.Error())
+			rec.Bid(caller, bidError)
 			kept = append(kept, bid)
 			continue
 		}
 
 		var revenueIDs []string
 		for _, issue := range issues {
-			if !revenueImpact(issue.ID) {
-				continue
+			impact := revenueImpact(issue.ID)
+			if impact {
+				revenueIDs = append(revenueIDs, issue.ID)
 			}
-			revenueIDs = append(revenueIDs, issue.ID)
-			rec.Finding(caller, issue.ID, true)
+			rec.Finding(caller, issue.ID, impact)
 		}
 		if reject && len(revenueIDs) > 0 {
 			dropped = true
+			rec.Bid(caller, bidRejected)
 			result.DebugMessages = append(result.DebugMessages, fmt.Sprintf(
 				"openadtech.vastlint dropped bid %s from %s: %s",
 				bid.Bid.ID,
@@ -73,6 +76,7 @@ func (m Module) HandleRawBidderResponseHook(
 			))
 			continue
 		}
+		rec.Bid(caller, bidChecked)
 		kept = append(kept, bid)
 	}
 
