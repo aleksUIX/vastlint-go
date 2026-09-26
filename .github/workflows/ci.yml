@@ -30,6 +30,26 @@ jobs:
       - name: go test
         run: go test -v ./...
 
+  prebid:
+    name: prebid module (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Set up Go
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e  # v7.0.0
+        with:
+          go-version: "1.25"
+
+      - name: go test
+        working-directory: prebid
+        run: go test -count=1 ./...
+
   # ── Create GitHub Release on tag push ─────────────────────────────────────
   release:
     name: GitHub Release

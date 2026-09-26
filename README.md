@@ -10,6 +10,8 @@ Backed by [vastlint](https://github.com/aleksUIX/vastlint) — a zero-dependency
 go get github.com/aleksUIX/vastlint-go
 ```
 
+Prebid Server hosts import the hook from [`github.com/aleksUIX/vastlint-go/prebid`](prebid/README.md).
+
 ---
 
 ## Why trust the rule set?
