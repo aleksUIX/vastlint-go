@@ -11,14 +11,15 @@ import (
 )
 
 type finding struct {
-	ID string
+	ID            string
+	RevenueImpact bool
 }
 
 // HandleRawBidderResponseHook checks video adm that looks like VAST.
 // Every finding is counted. Bids are dropped only when reject_revenue is
 // set and a revenue-impact rule fired.
 func (m Module) HandleRawBidderResponseHook(
-	_ context.Context,
+	ctx context.Context,
 	miCtx hookstage.ModuleInvocationContext,
 	payload hookstage.RawBidderResponsePayload,
 ) (hookstage.HookResult[hookstage.RawBidderResponsePayload], error) {
@@ -43,13 +44,26 @@ func (m Module) HandleRawBidderResponseHook(
 	kept := make([]*adapters.TypedBid, 0, len(payload.BidderResponse.Bids))
 	dropped := false
 	for _, bid := range payload.BidderResponse.Bids {
-		if bid == nil || bid.Bid == nil || bid.BidType != openrtb_ext.BidTypeVideo || !looksLikeVAST(bid.Bid.AdM) {
+		if bid == nil || bid.Bid == nil || bid.BidType != openrtb_ext.BidTypeVideo {
 			rec.Bid(caller, bidSkipped)
 			kept = append(kept, bid)
 			continue
 		}
 
-		issues, verr := m.validate(bid.Bid.AdM)
+		xml, skip, ferr := m.markup(ctx, bid.Bid.AdM)
+		if skip {
+			rec.Bid(caller, bidSkipped)
+			kept = append(kept, bid)
+			continue
+		}
+		if ferr != nil {
+			result.Errors = append(result.Errors, ferr.Error())
+			rec.Bid(caller, bidError)
+			kept = append(kept, bid)
+			continue
+		}
+
+		issues, verr := m.validate(xml)
 		if verr != nil {
 			result.Errors = append(result.Errors, verr.Error())
 			rec.Bid(caller, bidError)
@@ -59,11 +73,10 @@ func (m Module) HandleRawBidderResponseHook(
 
 		var revenueIDs []string
 		for _, issue := range issues {
-			impact := revenueImpact(issue.ID)
-			if impact {
+			if issue.RevenueImpact {
 				revenueIDs = append(revenueIDs, issue.ID)
 			}
-			rec.Finding(caller, issue.ID, impact)
+			rec.Finding(caller, issue.ID, issue.RevenueImpact)
 		}
 		if reject && len(revenueIDs) > 0 {
 			dropped = true
@@ -84,6 +97,25 @@ func (m Module) HandleRawBidderResponseHook(
 		result.ChangeSet.RawBidderResponse().Bids().UpdateBids(kept)
 	}
 	return result, nil
+}
+
+func (m Module) markup(ctx context.Context, adm string) (string, bool, error) {
+	trimmed := strings.TrimSpace(adm)
+	if looksLikeVAST(trimmed) {
+		return trimmed, false, nil
+	}
+	if !looksLikeTagURL(trimmed) {
+		return "", true, nil
+	}
+	fetch := m.fetch
+	if fetch == nil {
+		fetch = fetchTag
+	}
+	body, err := fetch(ctx, trimmed, m.cfg.fetchTimeout())
+	if err != nil {
+		return "", false, err
+	}
+	return body, false, nil
 }
 
 func (m Module) reject(account []byte) (bool, error) {

@@ -68,6 +68,15 @@ func TestValidate_InvalidTag_HasErrors(t *testing.T) {
 	if result.Summary.Errors == 0 {
 		t.Error("expected at least one error")
 	}
+	var sawRevenue bool
+	for _, issue := range result.Issues {
+		if issue.ID == "VAST-2.0-inline-impression" && issue.RevenueImpact {
+			sawRevenue = true
+		}
+	}
+	if !sawRevenue {
+		t.Errorf("expected VAST-2.0-inline-impression to carry revenue_impact from the core, got %+v", result.Issues)
+	}
 }
 
 func TestValidate_MalformedXML_HasErrors(t *testing.T) {

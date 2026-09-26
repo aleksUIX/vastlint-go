@@ -38,6 +38,10 @@ if _, ok := moduleStageNames[vastlintpbs.MetricsKey]; ok {
 
 `vastlint_bids_total{caller,result}` counts each bid as `checked`, `skipped`, `rejected`, or `error`. A clean tag and a skipped tag no longer look the same.
 
+`revenue_impact` is the flag on the vastlint result. The hook does not keep its own copy of the rule list.
+
+A video `adm` that is an `http` or `https` URL is fetched, then validated. The fetch stops at the earlier of `fetch_timeout_ms` (default 50) and the hook group timeout. A failed fetch counts as `error` and the bid stays. The group timeout has to be longer than the fetch or the stage cancels the hook before the counter is written. Link-local hosts are refused.
+
 ## Configuration
 
 ```yaml
@@ -48,13 +52,14 @@ hooks:
       vastlint:
         enabled: true
         reject_revenue: false
+        fetch_timeout_ms: 50
   host_execution_plan:
     endpoints:
       /openrtb2/auction:
         stages:
           raw_bidder_response:
             groups:
-              - timeout: 5
+              - timeout: 80
                 hook_sequence:
                   - module_code: openadtech.vastlint
                     hook_impl_code: vastlint-raw-bidder-response
@@ -62,7 +67,7 @@ hooks:
         stages:
           raw_bidder_response:
             groups:
-              - timeout: 5
+              - timeout: 80
                 hook_sequence:
                   - module_code: openadtech.vastlint
                     hook_impl_code: vastlint-raw-bidder-response

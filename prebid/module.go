@@ -1,7 +1,9 @@
 package prebid
 
 import (
+	"context"
 	"encoding/json"
+	"time"
 
 	vastlint "github.com/aleksUIX/vastlint-go"
 	"github.com/prebid/prebid-server/v4/modules/moduledeps"
@@ -12,6 +14,7 @@ type Module struct {
 	cfg      config
 	validate func(xml string) ([]finding, error)
 	record   recorder
+	fetch    func(ctx context.Context, rawURL string, limit time.Duration) (string, error)
 }
 
 // Builder is the Prebid Server module entry point.
@@ -21,7 +24,7 @@ func Builder(raw json.RawMessage, _ moduledeps.ModuleDeps) (interface{}, error) 
 	if err != nil {
 		return nil, err
 	}
-	return Module{cfg: cfg, validate: validateXML}, nil
+	return Module{cfg: cfg, validate: validateXML, fetch: fetchTag}, nil
 }
 
 func validateXML(xml string) ([]finding, error) {
@@ -31,7 +34,7 @@ func validateXML(xml string) ([]finding, error) {
 	}
 	out := make([]finding, 0, len(result.Issues))
 	for _, issue := range result.Issues {
-		out = append(out, finding{ID: issue.ID})
+		out = append(out, finding{ID: issue.ID, RevenueImpact: issue.RevenueImpact})
 	}
 	return out, nil
 }

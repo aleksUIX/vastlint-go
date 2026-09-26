@@ -62,6 +62,11 @@ type Issue struct {
 	// SpecRef is the spec section that defines the rule, e.g.
 	// "IAB VAST 4.2 §3.4.1".
 	SpecRef string `json:"spec_ref"`
+
+	// RevenueImpact is true when this finding is one of the catalog rules
+	// whose violation loses the impression, the measurement, or the fill.
+	// The value comes from vastlint-core. Callers should not keep their own copy.
+	RevenueImpact bool `json:"revenue_impact"`
 }
 
 // Summary contains aggregate counts for a validation result.
@@ -190,11 +195,12 @@ func parseResult(raw *C.VastlintResult) (*Result, error) {
 	var wire struct {
 		Version *string `json:"version"`
 		Issues  []struct {
-			ID       string  `json:"id"`
-			Severity string  `json:"severity"`
-			Message  string  `json:"message"`
-			Path     *string `json:"path"`
-			SpecRef  string  `json:"spec_ref"`
+			ID            string  `json:"id"`
+			Severity      string  `json:"severity"`
+			Message       string  `json:"message"`
+			Path          *string `json:"path"`
+			SpecRef       string  `json:"spec_ref"`
+			RevenueImpact bool    `json:"revenue_impact"`
 		} `json:"issues"`
 		Summary struct {
 			Errors   int  `json:"errors"`
@@ -224,10 +230,11 @@ func parseResult(raw *C.VastlintResult) (*Result, error) {
 	result.Issues = make([]Issue, len(wire.Issues))
 	for i, wi := range wire.Issues {
 		result.Issues[i] = Issue{
-			ID:       wi.ID,
-			Severity: wi.Severity,
-			Message:  wi.Message,
-			SpecRef:  wi.SpecRef,
+			ID:            wi.ID,
+			Severity:      wi.Severity,
+			Message:       wi.Message,
+			SpecRef:       wi.SpecRef,
+			RevenueImpact: wi.RevenueImpact,
 		}
 		if wi.Path != nil {
 			result.Issues[i].Path = *wi.Path

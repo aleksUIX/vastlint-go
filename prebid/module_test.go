@@ -29,7 +29,7 @@ func TestRejectRevenueDropsBid(t *testing.T) {
 	m := Module{
 		cfg: config{RejectRevenue: true},
 		validate: func(string) ([]finding, error) {
-			return []finding{{ID: "VAST-2.0-inline-impression"}, {ID: "VAST-2.0-some-other"}}, nil
+			return []finding{{ID: "VAST-2.0-inline-impression", RevenueImpact: true}, {ID: "VAST-2.0-some-other"}}, nil
 		},
 		record: tally,
 	}
@@ -60,7 +60,7 @@ func TestCountingKeepsBid(t *testing.T) {
 	m := Module{
 		cfg: config{RejectRevenue: false},
 		validate: func(string) ([]finding, error) {
-			return []finding{{ID: "VAST-2.0-inline-impression"}}, nil
+			return []finding{{ID: "VAST-2.0-inline-impression", RevenueImpact: true}}, nil
 		},
 		record: tally,
 	}
@@ -87,7 +87,7 @@ func TestSkipsNonVASTAndValidatorErrors(t *testing.T) {
 	payload := hookstage.RawBidderResponsePayload{
 		Bidder: "dsp",
 		BidderResponse: &adapters.BidderResponse{Bids: []*adapters.TypedBid{
-			{BidType: openrtb_ext.BidTypeVideo, Bid: &openrtb2.Bid{ID: "url", AdM: "https://vast.example/tag.xml"}},
+			{BidType: openrtb_ext.BidTypeVideo, Bid: &openrtb2.Bid{ID: "url", AdM: "not-a-tag"}},
 			videoBid(missingImpression),
 		}},
 	}
@@ -105,7 +105,7 @@ func TestAccountConfigOverridesReject(t *testing.T) {
 	m := Module{
 		cfg: config{RejectRevenue: false},
 		validate: func(string) ([]finding, error) {
-			return []finding{{ID: "VAST-2.0-wrapper-vastadtaguri"}}, nil
+			return []finding{{ID: "VAST-2.0-wrapper-vastadtaguri", RevenueImpact: true}}, nil
 		},
 		record: tally,
 	}
@@ -131,7 +131,7 @@ func TestRegisterRecordsOnPrometheus(t *testing.T) {
 
 	m := Module{
 		validate: func(string) ([]finding, error) {
-			return []finding{{ID: "VAST-2.0-inline-impression"}}, nil
+			return []finding{{ID: "VAST-2.0-inline-impression", RevenueImpact: true}}, nil
 		},
 	}
 	payload := hookstage.RawBidderResponsePayload{
