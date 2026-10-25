@@ -25,30 +25,20 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e  # v7.0.0
         with:
-          go-version: "1.22"
+          go-version-file: go.mod
 
+      - name: go vet
+        run: go vet ./...
+
+      # The default engine is the embedded wasm module under wazero, so this
+      # needs nothing installed. The native engine (-tags vastlint_cgo) needs
+      # libvastlint on the host and is covered by the Prebid Server module's
+      # own tests and by the rig in the vastlint repository.
       - name: go test
-        run: go test -v ./...
+        run: go test -race -count=1 ./...
 
-  prebid:
-    name: prebid module (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-
-      - name: Set up Go
-        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e  # v7.0.0
-        with:
-          go-version: "1.25"
-
-      - name: go test
-        working-directory: prebid
-        run: go test -count=1 ./...
+      - name: benchmarks compile
+        run: go test -run xxx -bench . -benchtime 1x ./...
 
   # ── Create GitHub Release on tag push ─────────────────────────────────────
   release:
