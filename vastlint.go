@@ -1,238 +1,207 @@
-// Package vastlint provides Go bindings for the vastlint VAST XML validator.
+// Package vastlint validates IAB VAST, VMAP and DAAST XML in-process from Go.
 //
-// vastlint validates IAB VAST XML tags against 108 rules covering VAST 2.0
-// through 4.3. It validates production-size tags (17–44 KB) in under
-// 2.3 milliseconds and requires no network calls or external services.
+// The rules live in the Rust engine vastlint-core. This package runs that engine
+// one of two ways behind the same interface:
 //
-// Basic usage:
+//   - Default: the engine compiled to WebAssembly and executed by wazero, a pure
+//     Go runtime. Nothing to install, CGO_ENABLED=0 works, every platform Go
+//     supports. About three times the native cost per document.
+//   - Build tag vastlint_cgo: the native library libvastlint linked through cgo
+//     and found with pkg-config. Native speed. The host installs the library.
 //
-//	result, err := vastlint.Validate(xmlString)
-//	if err != nil {
-//	    log.Fatal(err)
-//	}
-//	if !result.Valid {
-//	    for _, issue := range result.Issues {
-//	        fmt.Printf("[%s] %s\n", issue.Severity, issue.Message)
-//	    }
-//	}
+// Both engines produce identical findings; the test suite checks that on every
+// fixture.
 //
-// With options:
+//	engine, err := vastlint.New(ctx, vastlint.Config{})
+//	defer engine.Close()
+//	result, err := engine.Validate(ctx, xml, vastlint.Options{})
 //
-//	result, err := vastlint.ValidateWithOptions(xmlString, vastlint.Options{
-//	    WrapperDepth:    2,
-//	    MaxWrapperDepth: 5,
-//	    RuleOverrides: map[string]string{
-//	        "VAST-2.0-mediafile-https":       "error",
-//	        "VAST-4.1-mezzanine-recommended": "off",
-//	    },
-//	})
+// The package-level Validate and ValidateWithOptions keep the original API and
+// use a lazily created default engine.
 package vastlint
 
-/*
-#cgo darwin,arm64  LDFLAGS: -L${SRCDIR}/libs/darwin_arm64  -lvastlint -lm
-#cgo darwin,amd64  LDFLAGS: -L${SRCDIR}/libs/darwin_amd64  -lvastlint -lm
-#cgo linux,arm64   LDFLAGS: -L${SRCDIR}/libs/linux_arm64   -lvastlint -lm -ldl -lpthread
-#cgo linux,amd64   LDFLAGS: -L${SRCDIR}/libs/linux_amd64   -lvastlint -lm -ldl -lpthread
-#include "vastlint.h"
-#include <stdlib.h>
-*/
-import "C"
-
 import (
-	"encoding/json"
+	"context"
+	"errors"
 	"fmt"
-	"unsafe"
+	"sync"
 )
 
-// Issue represents a single validation finding.
+// ExpectedVersion is the engine version this package was built against. New
+// refuses an engine that reports a different version so a stale library or
+// module can never run under a binding that assumes a different catalog.
+const ExpectedVersion = "0.15.3"
+
+// Issue is a single validation finding.
 type Issue struct {
-	// ID is the stable rule identifier, e.g. "VAST-4.2-3.4.1".
+	// ID is the stable rule identifier, for example "VAST-2.0-inline-impression".
 	ID string `json:"id"`
-
-	// Severity is one of "error", "warning", or "info".
+	// Severity is "error", "warning" or "info", after any overrides.
 	Severity string `json:"severity"`
-
-	// Message is a human-readable description of the finding.
+	// Message is the human-readable description.
 	Message string `json:"message"`
-
-	// Path is the XPath-like location in the document, e.g.
-	// "VAST/Ad/InLine/Creatives". Empty string if not applicable.
+	// Path is the XPath-like location, for example "/VAST/Ad[0]/InLine". Empty
+	// for document-level findings.
 	Path string `json:"path"`
-
-	// SpecRef is the spec section that defines the rule, e.g.
-	// "IAB VAST 4.2 §3.4.1".
+	// SpecRef names the specification section, for example "IAB VAST 4.2 §3.4.1".
 	SpecRef string `json:"spec_ref"`
+	// Line and Col are 1-based; zero when the finding has no position.
+	Line int `json:"line"`
+	Col  int `json:"col"`
 }
 
-// Summary contains aggregate counts for a validation result.
+// Summary counts findings by severity.
 type Summary struct {
 	Errors   int `json:"errors"`
 	Warnings int `json:"warnings"`
 	Infos    int `json:"infos"`
 }
 
-// Result is the output of a validation call.
+// Result is the outcome of validating one document.
 type Result struct {
-	// Version is the detected VAST version string, e.g. "4.2".
-	// Empty string if the version could not be determined.
+	// DocumentType is "VAST", "VMAP" or "DAAST".
+	DocumentType string `json:"document_type"`
+	// Version is the detected version, for example "4.2". Empty when unknown.
 	Version string `json:"version"`
-
-	// Issues is the list of all validation findings.
-	Issues []Issue `json:"issues"`
-
-	// Summary contains aggregate counts by severity.
-	Summary Summary `json:"summary"`
-
-	// Valid is true when Summary.Errors == 0.
+	// InputStatus is "supported", "unsupported" or "malformed". It is decided
+	// independently of rule severity overrides, so a caller can tell non-VAST
+	// input from VAST with findings even when rules are turned off.
+	InputStatus string `json:"input_status"`
+	Issues      []Issue `json:"issues"`
+	Summary     Summary `json:"summary"`
+	// Valid is true when there are no error-severity findings.
 	Valid bool `json:"valid"`
 }
 
-// Options configures an optional validation call.
+// Options configures one validation call.
 type Options struct {
-	// WrapperDepth is the current wrapper chain depth. Pass 0 for the
-	// outermost tag in a chain (the default).
+	// WrapperDepth is this document's position in a wrapper chain; 0 for the
+	// outermost tag.
 	WrapperDepth uint
-
-	// MaxWrapperDepth is the maximum allowed wrapper chain depth. Pass 0
-	// to use the default (5).
+	// MaxWrapperDepth is the allowed chain depth; 0 selects the default of 5.
 	MaxWrapperDepth uint
-
-	// RuleOverrides maps rule IDs to severity strings. Valid severity
-	// values are "error", "warning", "info", and "off". Unknown rule IDs
-	// and unrecognised severity strings are silently ignored, matching the
-	// CLI config-file behaviour.
-	//
-	// Example:
-	//   map[string]string{
-	//       "VAST-2.0-mediafile-https":       "error",
-	//       "VAST-4.1-mezzanine-recommended": "off",
-	//   }
+	// RuleOverrides maps rule ids to "error", "warning", "info" or "off".
+	// Unknown rule ids or levels are rejected with ErrUnknownRule.
 	RuleOverrides map[string]string
 }
 
-// Validate validates a VAST XML string using the default rule configuration.
-//
-// Returns a non-nil error only if xml is empty or if the internal JSON
-// deserialisation of the result fails (should never happen in practice).
+// Rule describes one catalog entry.
+type Rule struct {
+	ID              string `json:"id"`
+	DefaultSeverity string `json:"default_severity"`
+	Description     string `json:"description"`
+	Source          string `json:"source"`
+	// RevenueImpact is true when violating the rule tends to cost the impression
+	// or its measurement.
+	RevenueImpact bool `json:"revenue_impact"`
+}
+
+// Config tunes an Engine. Zero values select the defaults named here.
+type Config struct {
+	// MaxInputBytes rejects larger documents before they reach the engine.
+	// Default 1 MiB. The engine itself refuses anything above 4 MiB.
+	MaxInputBytes int
+	// PoolSize is the number of engine instances kept ready for concurrent
+	// callers (wasm engine only; the native engine is stateless). Default
+	// runtime.GOMAXPROCS(0).
+	PoolSize int
+	// MaxInstanceMemory recycles a wasm instance whose linear memory grew past
+	// this many bytes, since wasm memory never shrinks. Default 16 MiB.
+	MaxInstanceMemory int
+}
+
+// Engine validates documents. Implementations are safe for concurrent use.
+type Engine interface {
+	// Validate checks one document. ctx bounds the call; on the wasm engine a
+	// deadline aborts the instance, which is then replaced.
+	Validate(ctx context.Context, xml string, opts Options) (*Result, error)
+	// Rules returns the engine's rule catalog.
+	Rules() []Rule
+	// Version returns the engine version, equal to ExpectedVersion.
+	Version() string
+	// Kind is "wasm" or "cgo".
+	Kind() string
+	Close() error
+}
+
+// Errors returned by engines. Wrap-compare with errors.Is.
+var (
+	ErrEmptyInput    = errors.New("vastlint: input is empty")
+	ErrInputTooLarge = errors.New("vastlint: input exceeds MaxInputBytes")
+	ErrUnknownRule   = errors.New("vastlint: unknown rule id or level in RuleOverrides")
+	// ErrEngine means the engine failed to produce a verdict (a trap, a panic
+	// caught at the boundary, or a malformed reply). The document was not
+	// validated and should be counted as an engine failure, not as invalid.
+	ErrEngine = errors.New("vastlint: engine failure")
+	// ErrVersionMismatch is returned by New when the engine is not ExpectedVersion.
+	ErrVersionMismatch = errors.New("vastlint: engine version does not match ExpectedVersion")
+)
+
+func (c Config) withDefaults() Config {
+	if c.MaxInputBytes <= 0 {
+		c.MaxInputBytes = 1 << 20
+	}
+	if c.PoolSize <= 0 {
+		c.PoolSize = defaultPoolSize()
+	}
+	if c.MaxInstanceMemory <= 0 {
+		c.MaxInstanceMemory = 16 << 20
+	}
+	return c
+}
+
+// New creates the engine selected at build time (wasm by default, native with
+// -tags vastlint_cgo).
+func New(ctx context.Context, cfg Config) (Engine, error) {
+	return newEngine(ctx, cfg.withDefaults())
+}
+
+var (
+	defaultOnce   sync.Once
+	defaultEngine Engine
+	defaultErr    error
+)
+
+func getDefault() (Engine, error) {
+	defaultOnce.Do(func() {
+		defaultEngine, defaultErr = New(context.Background(), Config{})
+	})
+	return defaultEngine, defaultErr
+}
+
+// Validate validates with default options using a shared engine created on
+// first use. For servers, create an Engine with New instead so you control its
+// lifetime and limits.
 func Validate(xml string) (*Result, error) {
-	if xml == "" {
-		return nil, fmt.Errorf("vastlint: xml must not be empty")
+	e, err := getDefault()
+	if err != nil {
+		return nil, err
 	}
-
-	cxml := C.CString(xml)
-	defer C.free(unsafe.Pointer(cxml))
-
-	raw := C.vastlint_validate(cxml, C.size_t(len(xml)))
-	if raw == nil {
-		return nil, fmt.Errorf("vastlint: internal error — vastlint_validate returned NULL")
-	}
-	defer C.vastlint_result_free(raw)
-
-	return parseResult(raw)
+	return e.Validate(context.Background(), xml, Options{})
 }
 
-// ValidateWithOptions validates a VAST XML string with caller-supplied options.
-//
-// A zero-value Options struct is equivalent to calling Validate.
+// ValidateWithOptions validates with caller-supplied options using the shared
+// engine.
 func ValidateWithOptions(xml string, opts Options) (*Result, error) {
-	if xml == "" {
-		return nil, fmt.Errorf("vastlint: xml must not be empty")
+	e, err := getDefault()
+	if err != nil {
+		return nil, err
 	}
-
-	cxml := C.CString(xml)
-	defer C.free(unsafe.Pointer(cxml))
-
-	// Serialise rule overrides to JSON for the C layer.
-	var coverrides *C.char
-	if len(opts.RuleOverrides) > 0 {
-		b, err := json.Marshal(opts.RuleOverrides)
-		if err != nil {
-			return nil, fmt.Errorf("vastlint: failed to serialise rule overrides: %w", err)
-		}
-		cs := C.CString(string(b))
-		defer C.free(unsafe.Pointer(cs))
-		coverrides = cs
-	}
-
-	raw := C.vastlint_validate_with_options(
-		cxml,
-		C.size_t(len(xml)),
-		C.uint(opts.WrapperDepth),
-		C.uint(opts.MaxWrapperDepth),
-		coverrides,
-	)
-	if raw == nil {
-		return nil, fmt.Errorf("vastlint: internal error — vastlint_validate_with_options returned NULL")
-	}
-	defer C.vastlint_result_free(raw)
-
-	return parseResult(raw)
+	return e.Validate(context.Background(), xml, opts)
 }
 
-// Version returns the vastlint-core library version string, e.g. "0.1.0".
+// Version returns the engine version of the shared engine, or ExpectedVersion
+// if the engine could not be created.
 func Version() string {
-	return C.GoString(C.vastlint_version())
+	if e, err := getDefault(); err == nil {
+		return e.Version()
+	}
+	return ExpectedVersion
 }
 
-// parseResult reads the JSON out of the opaque C result handle and
-// deserialises it into a *Result. The caller is responsible for freeing raw.
-func parseResult(raw *C.VastlintResult) (*Result, error) {
-	jsonPtr := C.vastlint_result_json(raw)
-	if jsonPtr == nil {
-		return nil, fmt.Errorf("vastlint: vastlint_result_json returned NULL")
+func checkVersion(got string) error {
+	if got != ExpectedVersion {
+		return fmt.Errorf("%w: engine reports %q, binding expects %q", ErrVersionMismatch, got, ExpectedVersion)
 	}
-
-	jsonStr := C.GoString(jsonPtr)
-
-	// The JSON has a nullable "version" field and nullable "path" fields on
-	// issues. We unmarshal into an intermediate struct to handle the nulls
-	// cleanly, then convert to the public Result type.
-	var wire struct {
-		Version *string `json:"version"`
-		Issues  []struct {
-			ID       string  `json:"id"`
-			Severity string  `json:"severity"`
-			Message  string  `json:"message"`
-			Path     *string `json:"path"`
-			SpecRef  string  `json:"spec_ref"`
-		} `json:"issues"`
-		Summary struct {
-			Errors   int  `json:"errors"`
-			Warnings int  `json:"warnings"`
-			Infos    int  `json:"infos"`
-			Valid    bool `json:"valid"`
-		} `json:"summary"`
-	}
-
-	if err := json.Unmarshal([]byte(jsonStr), &wire); err != nil {
-		return nil, fmt.Errorf("vastlint: failed to parse result JSON: %w", err)
-	}
-
-	result := &Result{
-		Summary: Summary{
-			Errors:   wire.Summary.Errors,
-			Warnings: wire.Summary.Warnings,
-			Infos:    wire.Summary.Infos,
-		},
-		Valid: wire.Summary.Valid,
-	}
-
-	if wire.Version != nil {
-		result.Version = *wire.Version
-	}
-
-	result.Issues = make([]Issue, len(wire.Issues))
-	for i, wi := range wire.Issues {
-		result.Issues[i] = Issue{
-			ID:       wi.ID,
-			Severity: wi.Severity,
-			Message:  wi.Message,
-			SpecRef:  wi.SpecRef,
-		}
-		if wi.Path != nil {
-			result.Issues[i].Path = *wi.Path
-		}
-	}
-
-	return result, nil
+	return nil
 }

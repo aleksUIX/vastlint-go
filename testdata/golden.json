@@ -1,0 +1,1984 @@
+{
+"err_ad_both_inline_and_wrapper.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-ad-has-inline-or-wrapper/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_adservingid_missing.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-4.1-adservingid-present/error",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_adverifications_unknown_child.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.0-adverifications-unknown-child/error",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.2"
+},
+"err_bad_delivery_enum.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-mediafile-delivery-enum/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_bad_duration.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-duration-format/error",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_category_authority.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-version-mismatch/warning",
+"VAST-4.0-category-authority/error"
+],
+"valid": false,
+"version": "4.0"
+},
+"err_companion_clicktracking_no_id.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-4.0-companion-clicktracking-id/error"
+],
+"valid": false,
+"version": "4.2"
+},
+"err_companion_no_dimensions.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-companion-dimensions/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"err_companion_no_resource.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-companion-resource/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_adcom_signal_values.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-4.4-adcom-attr-not-motion/info",
+"VAST-4.4-adcom-extension-type-mismatch/warning",
+"VAST-4.4-adcom-extension-unknown-signal/warning",
+"VAST-4.4-adcom-playbackmethod-value/warning",
+"VAST-4.4-adcom-plcmt-value/warning",
+"VAST-4.4-adcom-pos-value/warning",
+"VAST-4.4-adcom-signal-not-integer/error"
+],
+"valid": false,
+"version": "4.2"
+},
+"err_ctv_addendum_binding_media.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-ctv-binding-unmatched/error",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_addendum_icon_regs.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-ctv-icon-regs/error",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_addendum_interactive.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-ctv-interactive-api/error",
+"VAST-2.0-ctv-interactive-duration/error",
+"VAST-2.0-ctv-interactive-payload/error",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_addendum_mezzanine.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-delivery/error",
+"VAST-4.1-mezzanine-height/error",
+"VAST-4.1-mezzanine-type/error",
+"VAST-4.1-mezzanine-width/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_addendum_mezzanine_values.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-ctv-mezzanine-values/error",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-mediafile-delivery-enum/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_addendum_omid.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.0-adverifications-unknown-child/error",
+"VAST-4.1-js-resource-apiframework/error",
+"VAST-4.1-tracking-event-value/error",
+"VAST-4.1-verification-vendor/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_addendum_payload.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-ctv-extension-payload/error",
+"VAST-2.0-ctv-extension-payload/error",
+"VAST-2.0-ctv-extension-payload/error",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_addendum_universaladid.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-ctv-binding-unmatched/error",
+"VAST-2.0-ctv-universaladid-content/error",
+"VAST-2.0-ctv-universaladid-registry/error",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_nonlinear_mediafiles_in_4_2_only.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-nonlinear-unknown-child/error",
+"VAST-2.0-nonlinear-unknown-child/error",
+"VAST-2.0-nonlinearads-unknown-child/error"
+],
+"valid": false,
+"version": "3.0"
+},
+"err_ctv_nonlinear_simid_no_fallback.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-4.4-nonlinear-no-renderable-asset/warning"
+],
+"valid": true,
+"version": "4.2"
+},
+"err_ctv_portfolio_legacy_all_modes.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-ctv-portfolio-creative-id-required/error",
+"VAST-2.0-ctv-portfolio-creative-id-unmatched/error",
+"VAST-2.0-ctv-portfolio-mediafiles-empty/error",
+"VAST-2.0-ctv-portfolio-mediafiles-required/error",
+"VAST-2.0-ctv-portfolio-no-duration/warning",
+"VAST-2.0-ctv-portfolio-no-renderable-asset/warning",
+"VAST-2.0-nonlinear-resource/error",
+"VAST-2.0-nonlinear-resource/error",
+"VAST-4.4-adcom-attr-not-motion/info",
+"VAST-4.4-adcom-playbackmethod-format-mismatch/warning",
+"VAST-4.4-adcom-playbackmethod-value/warning",
+"VAST-4.4-adcom-plcmt-value/warning",
+"VAST-4.4-adcom-pos-format-mismatch/warning",
+"VAST-4.4-adcom-pos-value/warning",
+"VAST-4.4-adcom-signal-not-integer/error",
+"VAST-4.4-qrcode-missing-image-url/warning",
+"VAST-4.4-qrcode-missing-scan-url/warning",
+"VAST-4.4-qrcode-position-attrs/error",
+"VAST-4.4-qrcode-position-percent/error",
+"VAST-4.4-qrcode-size-attr/error",
+"VAST-4.4-qrcode-size-percent/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_portfolio_vast_2_0_binding.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-ctv-portfolio-creative-id-required/error",
+"VAST-2.0-ctv-portfolio-creative-id-unmatched/error",
+"VAST-2.0-ctv-portfolio-no-duration/warning",
+"VAST-2.0-ctv-portfolio-no-renderable-asset/warning",
+"VAST-4.4-adcom-plcmt-value/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_ctv_qrcode_geometry.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-4.4-qrcode-missing-image-url/warning",
+"VAST-4.4-qrcode-missing-scan-url/warning",
+"VAST-4.4-qrcode-position-percent/error",
+"VAST-4.4-qrcode-position-percent/error",
+"VAST-4.4-qrcode-size-attr/error",
+"VAST-4.4-version-attribute/info"
+],
+"valid": false,
+"version": "4.4"
+},
+"err_duplicate_linear_duration.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-duplicate-singular-element/error",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.2"
+},
+"err_duplicate_vastadtaguri.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-duplicate-singular-element/error"
+],
+"valid": false,
+"version": "4.2"
+},
+"err_icon_missing_resource.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-3.0-icon-resource/error"
+],
+"valid": false,
+"version": "3.0"
+},
+"err_icon_required_attrs.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-3.0-icon-attrs/warning",
+"VAST-3.0-icon-height/error",
+"VAST-3.0-icon-program/error",
+"VAST-3.0-icon-width/error",
+"VAST-3.0-icon-xposition/error",
+"VAST-3.0-icon-yposition/error"
+],
+"valid": false,
+"version": "3.0"
+},
+"err_inline_missing_adtitle.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-inline-adtitle/error",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-tracking-https/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_inline_missing_creatives.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-inline-creatives/error",
+"VAST-2.0-url-cdata/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_inline_missing_impression.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-inline-impression/error",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_malformed_broken_attr_quote.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-parse-error/error"
+],
+"valid": false,
+"version": "4.0"
+},
+"err_malformed_mismatched_close.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-parse-error/error"
+],
+"valid": false,
+"version": "4.0"
+},
+"err_malformed_unclosed_cdata.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-parse-error/error"
+],
+"valid": false,
+"version": "4.0"
+},
+"err_mediafile_missing_attrs.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-mediafile-delivery/error",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_mediafile_missing_type.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-mediafile-type/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_mediafile_no_dimensions.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-mediafile-dimensions/error",
+"VAST-2.0-mediafile-dimensions/error",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_mezzanine_attrs.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-delivery/error",
+"VAST-4.1-mezzanine-height/error",
+"VAST-4.1-mezzanine-type/error",
+"VAST-4.1-mezzanine-width/error"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_minmaxbitrate_pair.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-3.0-minmaxbitrate-pair/error"
+],
+"valid": false,
+"version": "3.0"
+},
+"err_missing_adsystem.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-inline-adsystem/error",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_missing_duration.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-duration/error",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_missing_mediafiles.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-mediafiles/error",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_no_inline_or_wrapper.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-ad-has-inline-or-wrapper/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_no_version.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-root-version/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_nonlinear_no_dimensions.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-nonlinear-dimensions/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"err_nonlinear_no_resource.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-nonlinear-resource/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_pricing_attrs.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-3.0-pricing-currency/error",
+"VAST-3.0-pricing-model/error"
+],
+"valid": false,
+"version": "3.0"
+},
+"err_progress_no_offset.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-3.0-progress-offset/error"
+],
+"valid": false,
+"version": "3.0"
+},
+"err_simid_iframe_url_https.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.1-iframe-simid-url-https/error",
+"VAST-2.0-adsystem-no-version/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_simid_iframe_url_https_nonlinear.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.1-iframe-simid-url-https/error",
+"VAST-2.0-adsystem-no-version/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_simid_mediafile_required.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-mediafile-required/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-mediafiles/error",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_simid_type_javascript.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-type-required/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_simid_type_required.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-type-required/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-interactive-creative-type/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_simid_url_data_js.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-interactive-start/info",
+"SIMID-1.0-simid-url-data-html/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.3"
+},
+"err_simid_url_file.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-url-https/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_simid_url_https.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-url-https/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_simid_url_https_uppercase.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-url-https/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_simid_url_javascript.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-url-https/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_universaladid_missing.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-4.0-universaladid-present/error"
+],
+"valid": false,
+"version": "4.0"
+},
+"err_universaladid_no_content.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-universaladid-content/error"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_universaladid_no_registry.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-4.0-universaladid-idregistry/error"
+],
+"valid": false,
+"version": "4.0"
+},
+"err_universaladid_no_value.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.0-universaladid-idvalue/error"
+],
+"valid": false,
+"version": "4.0"
+},
+"err_url_empty.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-empty/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_verification_no_resource.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-verification-no-resource/warning",
+"VAST-4.1-verification-parameters/warning"
+],
+"valid": true,
+"version": "4.1"
+},
+"err_verification_resource_attrs.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-exec-resource-apiframework/error",
+"VAST-4.1-exec-resource-type/error",
+"VAST-4.1-js-resource-apiframework/error",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-verification-parameters/warning",
+"VAST-4.3-js-resource-browser-optional/warning"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_verification_tracking_event.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-tracking-event-value/error"
+],
+"valid": false,
+"version": "4.3"
+},
+"err_verification_unknown_child.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.0-verification-unknown-child/error",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-verification-parameters/warning"
+],
+"valid": false,
+"version": "4.2"
+},
+"err_verification_vendor.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-verification-parameters/warning",
+"VAST-4.1-verification-vendor/error"
+],
+"valid": false,
+"version": "4.1"
+},
+"err_viewableimpression_unknown_child.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.0-viewableimpression-unknown-child/error",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-tracking-event-value/error"
+],
+"valid": false,
+"version": "4.2"
+},
+"err_wrapper_missing_adsystem.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-wrapper-adsystem/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_wrapper_missing_impression.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-wrapper-impression/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"err_wrapper_missing_vasttag.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-wrapper-vastadtaguri/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"info_category_authority_unknown.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-4.0-category-authority-unknown/info",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.2"
+},
+"info_ctv_addendum_binding_implicit.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-ctv-binding-implicit/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"info_http_tracking.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-tracking-https/warning",
+"VAST-2.0-tracking-https/warning",
+"VAST-2.0-tracking-https/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"info_mediafile_apiframework.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.0-mediafile-apiframework/info",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"info_simid_interactive_start.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-interactive-start/info",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.2"
+},
+"info_simid_ssai_no_client.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-ssai-no-client/info",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "4.1"
+},
+"ok_ctv_inscene_video_4_2.xml": {
+"document_type": "VAST",
+"ids": [],
+"valid": true,
+"version": "4.2"
+},
+"ok_ctv_overlay_simid_4_4.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-4.4-version-attribute/info"
+],
+"valid": true,
+"version": "4.4"
+},
+"ok_ctv_pause_static_4_2.xml": {
+"document_type": "VAST",
+"ids": [],
+"valid": true,
+"version": "4.2"
+},
+"ok_ctv_portfolio_vast_2_0.xml": {
+"document_type": "VAST",
+"ids": [],
+"valid": true,
+"version": "2.0"
+},
+"ok_ctv_screensaver_static_4_2.xml": {
+"document_type": "VAST",
+"ids": [],
+"valid": true,
+"version": "4.2"
+},
+"ok_ctv_squeezeback_video_4_2.xml": {
+"document_type": "VAST",
+"ids": [],
+"valid": true,
+"version": "4.2"
+},
+"valid_2.0.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"valid_3.0.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"valid_4.0.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "4.0"
+},
+"valid_4.1.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"valid_4.1_clean_extensions.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"valid_4.2.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info"
+],
+"valid": true,
+"version": "4.2"
+},
+"valid_4.3.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.3"
+},
+"valid_4.3_interactive_data_uri.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-interactive-start/info",
+"SIMID-1.0-simid-type-required/error",
+"SIMID-1.0-simid-url-data-html/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.3"
+},
+"valid_4.3_with_verification.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-interactive-start/info",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "4.3"
+},
+"valid_category_authority_iabtc.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.2"
+},
+"valid_ctv_addendum_2_0.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"valid_ctv_addendum_3_0.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"valid_ctv_addendum_4_0.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "4.0"
+},
+"valid_ctv_addendum_4_1.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"valid_ctv_addendum_4_2.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.2"
+},
+"valid_ctv_addendum_4_3.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.3"
+},
+"valid_ctv_addendum_4_4.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.4-version-attribute/info"
+],
+"valid": true,
+"version": "4.4"
+},
+"valid_ctv_addendum_named_registry.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"valid_ctv_addendum_unknown_id.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"valid_expires.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.2"
+},
+"valid_no_ad_2.0.xml": {
+"document_type": "VAST",
+"ids": [],
+"valid": true,
+"version": "2.0"
+},
+"valid_simid_data_html.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.3"
+},
+"valid_simid_linear.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"valid_simid_nonlinear.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"valid_viewableimpression.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.2"
+},
+"valid_wrapper_bools.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info"
+],
+"valid": true,
+"version": "4.2"
+},
+"warn_ad_sequence_mixed.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-ad-sequence/warning",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"warn_adservingid_empty.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-ad-serving-id-empty/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_adtype_invalid.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-adtype-value/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_bad_skipoffset.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-3.0-skipoffset-format/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"warn_bitrate_conflict.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-3.0-bitrate-conflict/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"warn_blockedadcategories_authority_not_uri.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-4.1-blockedadcategories-authority-not-uri/warning"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_blockedadcategories_no_authority.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-4.1-blockedadcategories-no-authority/warning"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_category_authority_not_uri.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-4.0-category-authority-not-uri/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.2"
+},
+"warn_companion_renderingmode.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-4.1-companion-renderingmode-value/warning"
+],
+"valid": true,
+"version": "4.2"
+},
+"warn_companion_required_attr.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-3.0-companion-required-attr/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"warn_conditionalad_deprecated.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.0-conditionalad/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_creative_extension_misplaced_simid.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-creative-extension-misplaced-element/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_ctv_addendum_location.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-ctv-extension-location/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-version-mismatch/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"warn_ctv_addendum_registry_format.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-ctv-universaladid-registry-format/warning",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"warn_duplicate_impression.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-duplicate-impression/warning",
+"VAST-2.0-linear-tracking-quartiles/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"warn_expires_integer.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-expires-integer/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.2"
+},
+"warn_extension_misplaced_companion.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_extension_misplaced_multiple.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_extension_nested_misplaced.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_flash_mediafile.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-flash-mediafile/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"warn_http_mediafile.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-mediafile-https/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"warn_icon_fallback_no_dimensions.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.2-icon-fallback-image-width-height/warning"
+],
+"valid": true,
+"version": "4.2"
+},
+"warn_interactive_no_api.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.0-interactive-creative-no-api/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_interactive_no_type.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-type-required/error",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-interactive-creative-type/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": false,
+"version": "4.1"
+},
+"warn_interactive_no_type_no_api.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.0-interactive-creative-no-api/warning",
+"VAST-4.1-interactive-creative-type/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_linear_no_quartile_tracking.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-3.0-skip-event-no-skipoffset/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_mixed_vendor_pod.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-duplicate-impression/warning",
+"VAST-2.0-tracking-https/warning",
+"VAST-2.0-tracking-https/warning",
+"VAST-2.0-tracking-https/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_pricing_currency_format.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-3.0-pricing-currency-format/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"warn_pricing_model_case.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-3.0-pricing-model-case/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"warn_progress_offset_bad_format.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-3.0-progress-offset-format/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"warn_publica_large.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-version-mismatch/warning",
+"VAST-3.0-pricing-model-case/warning",
+"VAST-3.0-pricing-model-case/warning",
+"VAST-3.0-pricing-model-case/warning",
+"VAST-3.0-skip-event-no-skipoffset/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"warn_publica_large_pod.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-extension-misplaced-element/warning",
+"VAST-2.0-version-mismatch/warning",
+"VAST-3.0-pricing-model-case/warning",
+"VAST-3.0-pricing-model-case/warning",
+"VAST-3.0-pricing-model-case/warning",
+"VAST-3.0-skip-event-no-skipoffset/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"warn_root_ad_and_error.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.0-wrapper-root-error/warning"
+],
+"valid": true,
+"version": "4.0"
+},
+"warn_simid_apiframework_case.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-apiframework-case/warning",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_simid_apiframework_space.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-apiframework-case/warning",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_simid_iframe_type_on_iframe.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.1-iframe-simid-type-required/warning",
+"VAST-2.0-adsystem-no-version/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_simid_iframe_type_required.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.1-iframe-simid-type-required/warning",
+"VAST-2.0-adsystem-no-version/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_simid_variable_duration.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-variable-duration-value/warning",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_simid_variable_duration_false.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-variable-duration-value/warning",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_simid_variable_duration_one.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-variable-duration-value/warning",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_simid_variable_duration_true_case.xml": {
+"document_type": "VAST",
+"ids": [
+"SIMID-1.0-simid-variable-duration-value/warning",
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_skip_event_no_skipoffset.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-3.0-skip-event-no-skipoffset/warning"
+],
+"valid": true,
+"version": "3.0"
+},
+"warn_survey_deprecated.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-survey-deprecated/warning"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_tracking_event_removed.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-version-mismatch/warning",
+"VAST-4.0-tracking-event-removed/warning"
+],
+"valid": true,
+"version": "4.0"
+},
+"warn_tracking_event_unknown.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-2.0-url-cdata/warning",
+"VAST-4.1-tracking-event-value/error"
+],
+"valid": false,
+"version": "2.0"
+},
+"warn_universaladid_idvalue_removed.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-universaladid-idvalue-removed/warning"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_unknown_version.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-root-version-value/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"warn_url_invalid.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-url-invalid/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"warn_vast_1_0_document.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-root-element/warning"
+],
+"valid": true,
+"version": ""
+},
+"warn_verification_duplicate_vendor.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-verification-duplicate-vendor/warning"
+],
+"valid": true,
+"version": "4.3"
+},
+"warn_verification_extension_compat.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-js-resource-apiframework-value/warning",
+"VAST-4.1-verification-parameters/warning"
+],
+"valid": true,
+"version": "4.0"
+},
+"warn_verification_omid_semantics.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-exec-resource-apiframework-value/warning",
+"VAST-4.1-exec-resource-https/warning",
+"VAST-4.1-js-resource-apiframework-value/warning",
+"VAST-4.1-js-resource-https/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-verification-parameters/warning"
+],
+"valid": true,
+"version": "4.3"
+},
+"warn_verification_tracking_reason.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-verification-tracking-reason/warning"
+],
+"valid": true,
+"version": "4.3"
+},
+"warn_verification_vendor_format.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-verification-vendor-format/warning"
+],
+"valid": true,
+"version": "4.3"
+},
+"warn_version_mismatch.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-2.0-version-mismatch/warning"
+],
+"valid": true,
+"version": "2.0"
+},
+"warn_vpaid.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-vpaid-apiframework/warning"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_vpaid_with_interactive.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adtitle-quality/warning",
+"VAST-2.0-linear-tracking-quartiles/warning",
+"VAST-4.1-mezzanine-recommended/info",
+"VAST-4.1-vpaid-apiframework/warning",
+"VAST-4.1-vpaid-in-interactive-context/warning"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_wrapper_bool_attr.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-4.0-wrapper-bool-attr/warning"
+],
+"valid": true,
+"version": "4.2"
+},
+"warn_wrapper_clickthrough_v41.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-adsystem-quality/info",
+"VAST-4.0-wrapper-clickthrough/warning"
+],
+"valid": true,
+"version": "4.1"
+},
+"warn_wrapper_vendor_messy.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-tracking-https/warning",
+"VAST-4.0-wrapper-clickthrough/warning"
+],
+"valid": true,
+"version": "4.1"
+},
+"wrapper_to_inline.xml": {
+"document_type": "VAST",
+"ids": [
+"VAST-2.0-adsystem-no-version/info",
+"VAST-2.0-tracking-https/warning"
+],
+"valid": true,
+"version": "2.0"
+}
+}
