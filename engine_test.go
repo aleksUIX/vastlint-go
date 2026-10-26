@@ -138,12 +138,12 @@ func TestInputStatusAndInputGuards(t *testing.T) {
 	e := newTestEngine(t)
 	ctx := context.Background()
 	cases := map[string]string{
-		`<VAST version="4.2"><Ad>`:     "malformed",
-		`<html><body/></html>`:         "unsupported",
-		`<VMAP version="1.0"/>`:        "supported",
-		`<DAAST version="1.1"/>`:       "supported",
-		`<!DOCTYPE VAST><VAST/>`:       "malformed",
-		string(rune(0xFEFF)) + invalidVAST: "supported",
+		`<VAST version="4.2"><Ad>`:          "malformed",
+		`<html><body/></html>`:              "unsupported",
+		`<VMAP version="1.0"/>`:             "supported",
+		`<DAAST version="1.1"/>`:            "supported",
+		`<!DOCTYPE VAST><VAST/>`:            "malformed",
+		string(rune(0xFEFF)) + invalidVAST:  "supported",
 		"<VAST version=\"4.2\">\x07</VAST>": "malformed",
 	}
 	for xml, want := range cases {
@@ -234,5 +234,46 @@ func TestOversizeDocumentRecyclesInstance(t *testing.T) {
 	// Second call must work on the recycled instance.
 	if _, err := e.Validate(context.Background(), invalidVAST, Options{}); err != nil {
 		t.Fatal(err)
+	}
+}
+
+// TestCloseRacesValidate closes the engine while callers are mid-flight. No
+// call may panic; after Close every call reports an error.
+func TestCloseRacesValidate(t *testing.T) {
+	ctx := context.Background()
+	doc, err := os.ReadFile(filepath.Join("testdata", "fixtures", "err_bad_duration.xml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	smallFixture := string(doc)
+	for round := 0; round < 5; round++ {
+		e, err := New(ctx, Config{PoolSize: 2})
+		if err != nil {
+			t.Fatal(err)
+		}
+		var wg sync.WaitGroup
+		start := make(chan struct{})
+		for g := 0; g < 8; g++ {
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				<-start
+				for i := 0; i < 50; i++ {
+					_, _ = e.Validate(ctx, smallFixture, Options{})
+				}
+			}()
+		}
+		close(start)
+		time.Sleep(time.Duration(round) * time.Millisecond)
+		if err := e.Close(); err != nil {
+			t.Fatal(err)
+		}
+		wg.Wait()
+		if _, err := e.Validate(ctx, smallFixture, Options{}); err == nil {
+			t.Fatal("Validate succeeded after Close")
+		}
+		if err := e.Close(); err != nil {
+			t.Fatal("second Close:", err)
+		}
 	}
 }

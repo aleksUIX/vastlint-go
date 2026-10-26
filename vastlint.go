@@ -66,7 +66,7 @@ type Result struct {
 	// InputStatus is "supported", "unsupported" or "malformed". It is decided
 	// independently of rule severity overrides, so a caller can tell non-VAST
 	// input from VAST with findings even when rules are turned off.
-	InputStatus string `json:"input_status"`
+	InputStatus string  `json:"input_status"`
 	Issues      []Issue `json:"issues"`
 	Summary     Summary `json:"summary"`
 	// Valid is true when there are no error-severity findings.

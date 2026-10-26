@@ -223,6 +223,17 @@ func (e *wasmEngine) Validate(ctx context.Context, xml string, opts Options) (*R
 	case <-e.closed:
 		return nil, fmt.Errorf("%w: engine closed", ErrEngine)
 	}
+	if inst == nil {
+		// An earlier re-instantiation failed and left the slot empty. Try
+		// again now; if it still fails the slot stays empty and the caller
+		// gets an error rather than a nil dereference.
+		fresh, ierr := e.instantiate(context.Background())
+		if ierr != nil {
+			e.pool <- nil
+			return nil, ierr
+		}
+		inst = fresh
+	}
 	payload, err := inst.run(ctx, xml, opts)
 	// A trap or runaway memory retires this instance; the pool slot is refilled
 	// with a fresh one.
@@ -230,10 +241,9 @@ func (e *wasmEngine) Validate(ctx context.Context, xml string, opts Options) (*R
 		_ = inst.mod.Close(context.Background())
 		fresh, ierr := e.instantiate(context.Background())
 		if ierr != nil {
-			// Shrink the pool rather than block callers forever; Close reports it.
-			e.mu.Lock()
+			// Leave the slot empty rather than block callers forever; the
+			// next caller to draw it retries the instantiation.
 			e.pool <- nil
-			e.mu.Unlock()
 		} else {
 			e.pool <- fresh
 		}
