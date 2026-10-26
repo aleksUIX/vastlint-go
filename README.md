@@ -1,5 +1,7 @@
 # vastlint-go
 
+Created by [Aleksander Sekowski](https://github.com/aleksUIX).
+
 In-process VAST, VMAP and DAAST validation for Go, backed by the [vastlint](https://github.com/aleksUIX/vastlint) rule engine. One `Engine` interface, two ways to run the engine, identical findings from both.
 
 ```sh
