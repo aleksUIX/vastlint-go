@@ -10,6 +10,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"runtime"
 	"strings"
 	"sync"
 
@@ -61,11 +62,14 @@ func newEngine(ctx context.Context, cfg Config) (Engine, error) {
 	// documents when measured. The engine bounds its own work (4 MiB input, 128
 	// levels, 100,000 elements), so a call always returns; callers that need a
 	// deadline check it before the call, as Validate does.
-	rt := wazero.NewRuntimeWithConfig(ctx, wazero.NewRuntimeConfigCompiler())
-	compiled, err := rt.CompileModule(ctx, abiModule)
+	if runtime.GOARCH != "amd64" && runtime.GOARCH != "arm64" {
+		// wazero's compiler backend exists for these two architectures only and
+		// panics elsewhere; say so instead of crashing the host.
+		return nil, fmt.Errorf("%w: the wasm engine needs amd64 or arm64 (GOARCH=%s); build with -tags vastlint_cgo and libvastlint instead", ErrEngine, runtime.GOARCH)
+	}
+	rt, compiled, err := compile(ctx)
 	if err != nil {
-		_ = rt.Close(ctx)
-		return nil, fmt.Errorf("%w: compile: %v", ErrEngine, err)
+		return nil, err
 	}
 	if n := len(compiled.ImportedFunctions()); n != 0 {
 		_ = rt.Close(ctx)
@@ -104,6 +108,28 @@ func newEngine(ctx context.Context, cfg Config) (Engine, error) {
 	}
 	e.known = ruleSet(e.rules)
 	return e, nil
+}
+
+// compile creates the runtime and compiles the embedded module. A panic from
+// the runtime (an unsupported CPU feature, a platform that refuses executable
+// memory) is turned into ErrEngine so a host sees a startup error, never a
+// crash.
+func compile(ctx context.Context) (rt wazero.Runtime, compiled wazero.CompiledModule, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			if rt != nil {
+				_ = rt.Close(ctx)
+			}
+			rt, compiled, err = nil, nil, fmt.Errorf("%w: wasm runtime: %v", ErrEngine, r)
+		}
+	}()
+	rt = wazero.NewRuntimeWithConfig(ctx, wazero.NewRuntimeConfigCompiler())
+	compiled, err = rt.CompileModule(ctx, abiModule)
+	if err != nil {
+		_ = rt.Close(ctx)
+		return nil, nil, fmt.Errorf("%w: compile: %v", ErrEngine, err)
+	}
+	return rt, compiled, nil
 }
 
 func (e *wasmEngine) instantiate(ctx context.Context) (*wasmInstance, error) {
