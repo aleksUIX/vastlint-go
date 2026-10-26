@@ -35,6 +35,7 @@ type cgoEngine struct {
 	// Measured on a loaded machine: 900+ threads and 600 to 900 MB resident in
 	// allocator arenas. Pinning confines that state to PoolSize threads.
 	jobs      chan cgoJob
+	done      chan struct{}
 	closeOnce sync.Once
 }
 
@@ -50,7 +51,7 @@ type cgoReply struct {
 }
 
 func newEngine(_ context.Context, cfg Config) (Engine, error) {
-	e := &cgoEngine{cfg: cfg, version: C.GoString(C.vastlint_version()), jobs: make(chan cgoJob)}
+	e := &cgoEngine{cfg: cfg, version: C.GoString(C.vastlint_version()), jobs: make(chan cgoJob), done: make(chan struct{})}
 	if err := checkVersion(e.version); err != nil {
 		return nil, err
 	}
@@ -73,9 +74,14 @@ func newEngine(_ context.Context, cfg Config) (Engine, error) {
 func (e *cgoEngine) worker() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
-	for job := range e.jobs {
-		res, err := e.call(job.xml, job.opts)
-		job.reply <- cgoReply{res: res, err: err}
+	for {
+		select {
+		case <-e.done:
+			return
+		case job := <-e.jobs:
+			res, err := e.call(job.xml, job.opts)
+			job.reply <- cgoReply{res: res, err: err}
+		}
 	}
 }
 
@@ -93,10 +99,14 @@ func (e *cgoEngine) Validate(ctx context.Context, xml string, opts Options) (*Re
 		return nil, err
 	}
 	job := cgoJob{xml: xml, opts: opts, reply: make(chan cgoReply, 1)}
+	// The jobs channel is never closed, so a call that races Close cannot
+	// panic; it observes done and reports the engine as closed.
 	select {
 	case e.jobs <- job:
 	case <-ctx.Done():
 		return nil, ctx.Err()
+	case <-e.done:
+		return nil, fmt.Errorf("%w: engine closed", ErrEngine)
 	}
 	// The reply channel is buffered, so a worker never blocks if the caller
 	// gives up while the call is in flight.
@@ -149,7 +159,10 @@ func (e *cgoEngine) Rules() []Rule {
 
 func (e *cgoEngine) Version() string { return e.version }
 func (e *cgoEngine) Kind() string    { return "cgo" }
+
+// Close stops the worker threads. Calls in flight finish; later calls return
+// ErrEngine. Safe to call more than once and concurrently with Validate.
 func (e *cgoEngine) Close() error {
-	e.closeOnce.Do(func() { close(e.jobs) })
+	e.closeOnce.Do(func() { close(e.done) })
 	return nil
 }
