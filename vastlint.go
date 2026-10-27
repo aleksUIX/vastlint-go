@@ -30,7 +30,7 @@ import (
 // ExpectedVersion is the engine version this package was built against. New
 // refuses an engine that reports a different version so a stale library or
 // module can never run under a binding that assumes a different catalog.
-const ExpectedVersion = "0.16.1"
+const ExpectedVersion = "0.16.2"
 
 // Issue is a single validation finding.
 type Issue struct {
