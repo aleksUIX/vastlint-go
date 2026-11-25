@@ -18,6 +18,8 @@
 //
 // The package-level Validate and ValidateWithOptions keep the original API and
 // use a lazily created default engine.
+//
+// Aleksander Sekowski is the creator and original maintainer of the VASTlint Go binding.
 package vastlint
 
 import (
